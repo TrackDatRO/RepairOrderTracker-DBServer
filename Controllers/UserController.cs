@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using MongoDB.Bson;
 using RepairOrderTrakerAPI.Models;
 using RepairOrderTrakerAPI.Services;
 using System;
@@ -31,7 +32,7 @@ namespace RepairOrderTrakerAPI.Controllers
       public ActionResult<List<UserModel>> Get() => _service.Get();
 
       [HttpGet("{id:length(24)}")]
-      public ActionResult<UserModel> Get(string id)
+      public ActionResult<UserModel> Get([FromQuery] ObjectId id)
       {
          _log.LogInformation("Get(string id)", id);
          _log.LogDebug("In Get(string id)");
@@ -47,18 +48,14 @@ namespace RepairOrderTrakerAPI.Controllers
       }
 
       [HttpPatch("{id:length(24)}")]
-      public ActionResult<UserModel> Patch(string id, UserModel updatedUser)
+      public ActionResult<UserModel> Patch([FromQuery] ObjectId id, UserModel updatedUser)
       {
          var result = _service.Update(id, updatedUser);
-         if (result is null)
-         {
-            return NotFound(id);
-         }
-         return result;
+         return result is null ? NotFound(id) : result;
       }
 
       [HttpDelete("{id:length(24)}")]
-      public ActionResult<bool> Delete(string id) => _service.Remove(id);
+      public ActionResult<bool> Delete([FromQuery] ObjectId id) => _service.Remove(id);
       #endregion
 
       #region - Full Properties

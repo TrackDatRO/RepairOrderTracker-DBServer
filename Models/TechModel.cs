@@ -5,9 +5,10 @@ using System.Threading.Tasks;
 
 namespace RepairOrderTrakerAPI.Models
 {
-   public class Tech : BaseModel
+   public class TechModel : BaseModel
    {
-      public string Name { get; set; }
+      public string FirstName { get; set; }
+      public string LastName { get; set; }
       public int TechNumber { get; set; }
       public double TotalTime { get; set; }
    }

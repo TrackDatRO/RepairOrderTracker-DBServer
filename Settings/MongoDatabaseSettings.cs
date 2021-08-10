@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RepairOrderTrakerAPI.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,21 +10,21 @@ namespace RepairOrderTrakerAPI.Settings
    {
       public string ConnectionString { get; set; }
       public string DatabaseName { get; set; }
-      public CollectionSettings UserCollection { get; set; }
-      public CollectionSettings RepairOrderCollection { get; set; }
-      public CollectionSettings TechCollection { get; set; }
-      public CollectionSettings JobCollection { get; set; }
-      public CollectionSettings PayPeriodCollection { get; set; }
+
+      public Dictionary<string, string> CollectionNames { get; set; }
+
+      public string GetCollectionString<T>() where T : BaseModel, new()
+      {
+         string name = new T().GetType().Name;
+         return CollectionNames[name];
+      }
    }
 
    public interface IMongoDatabaseSettings
    {
       string ConnectionString { get; set; }
       string DatabaseName { get; set; }
-      CollectionSettings UserCollection { get; set; }
-      CollectionSettings RepairOrderCollection { get; set; }
-      CollectionSettings TechCollection { get; set; }
-      CollectionSettings JobCollection { get; set; }
-      CollectionSettings PayPeriodCollection { get; set; }
+      Dictionary<string, string> CollectionNames { get; set; }
+      string GetCollectionString<T>() where T : BaseModel, new();
    }
 }

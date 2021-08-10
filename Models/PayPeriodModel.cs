@@ -12,7 +12,7 @@ namespace RepairOrderTrakerAPI.Models
       public DateTime StartDate { get; set; }
       public DateTime EndDate { get; set; }
 
-      [BsonRepresentation(BsonType.Array)]
-      public List<string> RepairOrders { get; set; }
+      public List<ObjectId> RepairOrderIds { get; set; }
+      public List<RepairOrderModel> RepairOrders { get; set; }
    }
 }

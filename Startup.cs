@@ -19,10 +19,7 @@ namespace RepairOrderTrakerAPI
 {
    public class Startup
    {
-      public Startup(IConfiguration configuration)
-      {
-         Configuration = configuration;
-      }
+      public Startup(IConfiguration configuration) => Configuration = configuration;
 
       public IConfiguration Configuration { get; }
 
@@ -34,12 +31,24 @@ namespace RepairOrderTrakerAPI
          services.AddSingleton<IMongoDatabaseSettings>(sp => sp.GetRequiredService<IOptions<MongoDatabaseSettings>>().Value);
 
          // Add database services here...
+         services.AddSingleton<JobService>();
+         services.AddSingleton<PayPeriodService>();
+         services.AddSingleton<RepairOrderService>();
+         services.AddSingleton<TechService>();
          services.AddSingleton<UserService>();
 
          services.AddControllers().AddNewtonsoftJson(opt => opt.UseMemberCasing());
          services.AddSwaggerGen(c =>
          {
-            c.SwaggerDoc("v1", new OpenApiInfo { Title = "RepairOrderTrackerAPI", Version = "v1", Description = "API for repair order tracker app." });
+            c.SwaggerDoc(
+               "v1",
+               new OpenApiInfo
+               { 
+                  Title = "RepairOrderTrackerAPI",
+                  Version = "v1",
+                  Description = "API for repair order tracker app."
+               }
+            );
          });
       }
 
@@ -59,10 +68,7 @@ namespace RepairOrderTrakerAPI
 
          app.UseAuthorization();
 
-         app.UseEndpoints(endpoints =>
-         {
-            endpoints.MapControllers();
-         });
+         app.UseEndpoints(endpoints => endpoints.MapControllers());
       }
    }
 }

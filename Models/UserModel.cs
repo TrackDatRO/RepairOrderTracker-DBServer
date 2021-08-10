@@ -12,7 +12,7 @@ namespace RepairOrderTrakerAPI.Models
       public string UserName { get; set; }
       public string Password { get; set; }
 
-      [BsonRepresentation(BsonType.Array)]
-      public List<string> PayPeriods { get; set; }
+      public List<PayPeriodModel> PayPeriods { get; set; }
+      public List<ObjectId> PayPeriodIds { get; set; }
    }
 }

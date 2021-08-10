@@ -10,10 +10,11 @@ namespace RepairOrderTrakerAPI.Models
    public class JobModel : BaseModel
    {
       public string JobName { get; set; }
+      public string Description { get; set; }
       public double Time { get; set; }
+      public bool IsCompleted { get; set; }
 
-      [BsonId]
-      [BsonRepresentation(BsonType.ObjectId)]
-      public string AssignedTech { get; set; }
+      public ObjectId AssignedTechId { get; set; }
+      public TechModel AssignedTech { get; set; }
    }
 }
