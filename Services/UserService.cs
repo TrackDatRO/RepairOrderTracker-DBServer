@@ -55,10 +55,10 @@ namespace RepairOrderTrakerAPI.Services
          return user;
       }
 
-      public UserModel Create(string username, string password)
-      {
+      //public UserModel Create(string username, string password)
+      //{
 
-      }
+      //}
 
       public UserModel Create(UserModel user)
       {
